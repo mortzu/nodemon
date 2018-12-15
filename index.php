@@ -41,11 +41,16 @@ require_once __DIR__ . '/config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=">
     <title>Nodewatcher - Freifunk Bremen</title>
+    <style type="text/css">
+    body {
+      padding-top: 2rem;
+    }
+    </style>
   </head>
 
   <body>
     <div class="container">
-      <div class="bg-white p-4 p-md-5 p-lg-6">
+      <div class="col-xs-1 text-center" style="text-align:center;">
         <h1>Nodewatcher</h1>
 
         <p><?php echo $config['view_text']; ?></p>
@@ -104,7 +109,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 
 ?>
 
-        <form class="form-inline" method="post" action="<?php echo $_SERVER['SCRIPT_URI']; ?>">
+        <form class="form-inline justify-content-center" method="post" action="<?php echo $_SERVER['SCRIPT_URI']; ?>">
           <div class="form-group mx-sm-3">
             <input type="text" class="form-control" id="nodename" placeholder="Nodename" name="nodename">
           </div>
