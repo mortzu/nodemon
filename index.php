@@ -59,7 +59,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
         continue;
 
       if ($_GET['token'] == trim(file_get_contents(__DIR__ . '/data/pending/' . $file))) {
-        echo '<div class="alert alert-danger" role="alert">Bestaetigt</div>';
+        echo '<div class="alert alert-success" role="alert">Die E-Mail-Adresse fuer deinen Knoten wurde bestaetigt.</div>';
         rename(__DIR__ . '/data/pending/' . $file, __DIR__ . '/data/verified/' . $file);
       }
     }
@@ -89,7 +89,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     elseif (file_exists(__DIR__ . '/data/pending/' . $nodename))
       echo '<div class="alert alert-danger" role="alert">Das Monitoring fuer diesen Knoten wurde schon eingerichtet</div>';
     else {
-      echo '<div class="alert alert-warning" role="alert">Du hast eine E-Mail mit einem Bestaetigungslink bekommen. Bitte klicke auf den Link.</div>';
+      echo '<div class="alert alert-success" role="alert">Du hast eine E-Mail mit einem Bestaetigungslink bekommen. Bitte klicke auf den Link.</div>';
 
       $token = md5(time());
 
