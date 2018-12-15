@@ -36,31 +36,40 @@ DATA_DIR="$(dirname $0)/data"
 # Get DNS domain suffix from config
 DOMAIN_SUFFIX="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; require_once '${DATA_DIR}/../config.php'; echo \$config['domain_suffix'] . \"\\n\";")"
 
-# Get mail from address from config
+# Get from address for mail from config
 EMAIL_FROM="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; require_once '${DATA_DIR}/../config.php'; echo \$config['email_from'] . \"\\n\";")"
 
-# 
+# Get content for node-offline-email
 EMAIL_MESSAGE_OFFLINE="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; require_once '${DATA_DIR}/../config.php'; echo \$config['email_message_offline'] . \"\\n\";")"
 
+# Iterate over verified nodes directory
 for NODE_FILE in ${DATA_DIR}/verified/*; do
+  # Get node name from file name
   NODE_NAME="$(basename ${NODE_FILE})"
 
+  # If no mail address set skip
   if [ ! -e "${DATA_DIR}/mail/${NODE_NAME}" ]; then
     continue
   fi
 
+  # Get mail address
   EMAIL_TO="$(<${DATA_DIR}/mail/${NODE_NAME})"
 
+  # Check if node is offline
   if ping6 -c5 -W5 ${NODE_NAME}.${DOMAIN_SUFFIX} >/dev/null 2>&1; then
+    # Write status to node file
     echo 1 > "$NODE_FILE"
   else
+    # If message was not already sent...
     if [ "$(<"$NODE_FILE")" != 0 ]; then
+      # ... send mail
       echo "$EMAIL_MESSAGE_OFFLINE" | \
         sed -e "s/___NODENAME___/${NODE_NAME}/g" \
             -e "s/___EMAIL___/${EMAIL_TO}/g" | \
         mailx -r "$EMAIL_FROM" -s "[Nodewatcher] ${NODE_NAME} ist offline" "$EMAIL_TO"
     fi
 
+    # Write status to node file
     echo 0 > "$NODE_FILE"
   fi
 done
