@@ -40,20 +40,7 @@ DOMAIN_SUFFIX="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; requ
 EMAIL_FROM="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; require_once '${DATA_DIR}/../config.php'; echo \$config['email_from'] . \"\\n\";")"
 
 # 
-EMAIL_BODY="Hallo,
-
-dein Knoten ___NODENAME___ ist offline.
-
-Vielleicht ist er nicht mehr in Reichweite eines benachbarten Knoten oder seine
-VPN-Verbindung ist abgebrochen?
-
--- 
-Du erhältst diese Mail, weil die E-Mail-Adresse ___EMAIL___ als Kontakt bei der
-Einrichtung dieses Knotens angegeben wurde. Du erhältst diese Mail nur einmal
-pro Ausfall des Knotens.
-
-Solltest du für diesen oder alle deine Knoten keine solchen Mails mehr erhalten
-wollen, teil uns das bitte als Antwort auf diese Mail mit."
+EMAIL_MESSAGE_OFFLINE="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; require_once '${DATA_DIR}/../config.php'; echo \$config['email_message_offline'] . \"\\n\";")"
 
 for NODE in ${DATA_DIR}/verified/*; do
   NODE_NAME="$(basename ${NODE})"

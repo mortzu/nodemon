@@ -52,16 +52,6 @@ POSSIBILITY OF SUCH DAMAGE.
 require_once __DIR__ . '/config.defaults.php';
 require_once __DIR__ . '/config.php';
 
-$message = <<<EOF
-Sie haben sich beim Nodewatcher angemeldet.
-Um diesen nutzen zu koennen, muessen Sie Ihre Mailadresse
-bestaetigen:
-
-___LINK___
-
-
-EOF;
-
 if (isset($_GET['token']) && !empty($_GET['token'])) {
   if ($dh = opendir(__DIR__ . '/data/pending/')) {
     while (($file = readdir($dh)) !== false) {
@@ -107,7 +97,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
       file_put_contents(__DIR__ . '/data/mail/' . $nodename, $nodecontact);
 
       $header = array('From' => $config['email_from']);
-      mail($nodecontact, '[Nodewatcher] Mailbestaetigung', str_replace('___LINK___', $_SERVER['SCRIPT_URI'] . '?token=' . $token, $message, $header));
+      mail($nodecontact, '[Nodewatcher] Mailbestaetigung', str_replace('___LINK___', $_SERVER['SCRIPT_URI'] . '?token=' . $token, $config['email_message_confirmation'], $header));
     }
   }
 } else {
