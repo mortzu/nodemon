@@ -59,7 +59,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
         continue;
 
       if ($_GET['token'] == trim(file_get_contents(__DIR__ . '/data/pending/' . $file))) {
-        echo '<div class="alert alert-success" role="alert">Die E-Mail-Adresse fuer deinen Knoten wurde bestaetigt.</div>';
+        echo '<div class="alert alert-success" role="alert">Die E-Mail-Adresse für deinen Knoten wurde bestätigt.</div>';
         rename(__DIR__ . '/data/pending/' . $file, __DIR__ . '/data/verified/' . $file);
       }
     }
@@ -85,19 +85,19 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 
   if (!empty($nodecontact)) {
     if (!filter_var($nodecontact, FILTER_VALIDATE_EMAIL))
-      echo '<div class="alert alert-danger" role="alert">Auf dem Knoten wurde keine gueltige E-Mail-Adresse eingegeben</div>';
+      echo '<div class="alert alert-danger" role="alert">Auf dem Knoten wurde keine gültige E-Mail-Adresse eingegeben</div>';
     elseif (file_exists(__DIR__ . '/data/pending/' . $nodename))
-      echo '<div class="alert alert-danger" role="alert">Das Monitoring fuer diesen Knoten wurde schon eingerichtet</div>';
+      echo '<div class="alert alert-danger" role="alert">Das Monitoring für diesen Knoten wurde schon eingerichtet</div>';
     else {
-      echo '<div class="alert alert-success" role="alert">Du hast eine E-Mail mit einem Bestaetigungslink bekommen. Bitte klicke auf den Link.</div>';
+      echo '<div class="alert alert-success" role="alert">Du hast eine E-Mail mit einem Bestätigungslink bekommen. Bitte klicke auf den Link.</div>';
 
       $token = md5(time());
 
       file_put_contents(__DIR__ . '/data/pending/' . $nodename, $token);
       file_put_contents(__DIR__ . '/data/mail/' . $nodename, $nodecontact);
 
-      $header = array('From' => $config['email_from']);
-      mail($nodecontact, '[Nodewatcher] Mailbestaetigung', str_replace('___LINK___', $_SERVER['SCRIPT_URI'] . '?token=' . $token, $config['email_message_confirmation'], $header));
+      $header = array('From' => $config['email_from'], 'Content-type' => 'text/plain; charset=utf-8');
+      mail($nodecontact, '[Nodewatcher] Mailbestätigung', str_replace('___LINK___', $_SERVER['SCRIPT_URI'] . '?token=' . $token, $config['email_message_confirmation'], $header));
     }
   }
 } else {

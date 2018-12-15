@@ -4,8 +4,8 @@ $config['domain_suffix'] = 'nodes.example.com';
 $config['email_from'] = 'freifunk@example.com';
 $config['email_message_confirmation'] = <<<EOF
 Sie haben sich beim Nodewatcher angemeldet.
-Um diesen nutzen zu koennen, muessen Sie Ihre Mailadresse
-bestaetigen:
+Um diesen nutzen zu können, müssen Sie Ihre Mailadresse
+bestätigen:
 
 ___LINK___
 
