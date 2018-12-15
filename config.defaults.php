@@ -1,5 +1,12 @@
 <?php
 
+$config['view_text'] = <<<EOF
+Hiermit kannst du dich per E-Mail benachrichtigen lassen,
+falls dein Freifunk-Knoten ausfällt. Trag deinen Knotennamen unten ein;
+E-Mails werden dann an die Kontaktadresse geschickt, die du im Knoten eingetragen hast.<br><br>
+
+Danach bekommst du eine Bestätigungsmail, um die E-Mail-Adresse auf Gültigkeit zu prüfen
+EOF;
 $config['domain_suffix'] = 'nodes.example.com';
 $config['email_from'] = 'freifunk@example.com';
 $config['email_message_confirmation'] = <<<EOF

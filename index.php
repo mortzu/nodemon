@@ -30,6 +30,9 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED O
 POSSIBILITY OF SUCH DAMAGE.
 */
 
+require_once __DIR__ . '/config.defaults.php';
+require_once __DIR__ . '/config.php';
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -45,12 +48,9 @@ POSSIBILITY OF SUCH DAMAGE.
       <div class="bg-white p-4 p-md-5 p-lg-6">
         <h1>Nodewatcher</h1>
 
-        <p>Lorem Ipsum</p>
+        <p><?php echo $config['view_text']; ?></p>
 
 <?php
-
-require_once __DIR__ . '/config.defaults.php';
-require_once __DIR__ . '/config.php';
 
 if (isset($_GET['token']) && !empty($_GET['token'])) {
   if ($dh = opendir(__DIR__ . '/data/pending/')) {
