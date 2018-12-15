@@ -49,6 +49,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 <?php
 
+require_once __DIR__ . '/config.defaults.php';
 require_once __DIR__ . '/config.php';
 
 $message = <<<EOF

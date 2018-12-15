@@ -34,10 +34,10 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 DATA_DIR="$(dirname $0)/data"
 
 # Get DNS domain suffix from config
-DOMAIN_SUFFIX="$(php -r "require_once '${DATA_DIR}/../config.php'; echo \$config['domain_suffix'] . \"\\n\";")"
+DOMAIN_SUFFIX="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; require_once '${DATA_DIR}/../config.php'; echo \$config['domain_suffix'] . \"\\n\";")"
 
 # Get mail from address from config
-EMAIL_FROM="$(php -r "require_once '${DATA_DIR}/../config.php'; echo \$config['email_from'] . \"\\n\";")"
+EMAIL_FROM="$(php -r "require_once '${DATA_DIR}/../config.defaults.php'; require_once '${DATA_DIR}/../config.php'; echo \$config['email_from'] . \"\\n\";")"
 
 # 
 EMAIL_BODY="Hallo,
