@@ -66,7 +66,7 @@ for NODE_FILE in ${DATA_DIR}/verified/*; do
       echo "$EMAIL_MESSAGE_OFFLINE" | \
         sed -e "s/___NODENAME___/${NODE_NAME}/g" \
             -e "s/___EMAIL___/${EMAIL_TO}/g" | \
-        mailx -r "$EMAIL_FROM" -s "[Nodewatcher] ${NODE_NAME} ist offline" "$EMAIL_TO"
+        mailx -S sendcharsets=utf-8 -r "$EMAIL_FROM" -s "[Nodewatcher] ${NODE_NAME} ist offline" "$EMAIL_TO"
     fi
 
     # Write status to node file
