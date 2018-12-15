@@ -115,5 +115,8 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 
       </div>
     </div>
+
+    <script src="vendor/components/jquery/jquery.min.js"></script>
+    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ="></script>
   </body>
 </html>
