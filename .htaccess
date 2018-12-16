@@ -3,6 +3,6 @@ RewriteBase /
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-<Files "cron.sh">
+<Files "cron.php">
   Require all denied
 </Files>
