@@ -57,7 +57,7 @@ foreach (glob(__DIR__ . '/data/verified/*') as $node_file) {
       $mail->setFrom($config['email_from']);
       $mail->addAddress($email_to);
       $mail->isHTML(false);
-      $mail->Subject = "[Nodewatcher] {$nodename} ist offline";
+      $mail->Subject = str_replace('___NODENAME___', $nodename, $config['email_subject_offline']);
       $mail->Body = str_replace(array('___NODENAME___', '___EMAIL___'), array($nodename, $email_to), $config['email_message_offline']);
       $mail->send();
     }

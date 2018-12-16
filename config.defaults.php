@@ -1,5 +1,6 @@
 <?php
 
+$config['view_title'] = 'Nodewatcher';
 $config['view_text'] = <<<EOF
 Hiermit kannst du dich per E-Mail benachrichtigen lassen,
 falls dein Freifunk-Knoten ausfällt. Trag deinen Knotennamen unten ein;
@@ -7,8 +8,16 @@ E-Mails werden dann an die Kontaktadresse geschickt, die du im Knoten eingetrage
 
 Danach bekommst du eine Bestätigungsmail, um die E-Mail-Adresse auf Gültigkeit zu prüfen
 EOF;
+$config['view_text_confirmed'] = 'Die E-Mail-Adresse für deinen Knoten wurde bestätigt.';
+$config['view_text_node_noconnect'] = 'Konnte keine Information vom Knoten holen';
+$config['view_text_node_parse'] = 'Konnte JSON vom Knoten nicht parsen';
+$config['view_text_node_nomail'] = 'Auf dem Knoten wurde keine E-Mail-Adresse eingegeben';
+$config['view_text_node_novalidmail'] = 'Auf dem Knoten wurde keine gültige E-Mail-Adresse eingegeben';
+$config['view_text_node_already'] = 'Das Monitoring für diesen Knoten wurde schon eingerichtet';
+$config['view_text_confirmation'] = 'Du hast eine E-Mail mit einem Bestätigungslink bekommen. Bitte klicke auf den Link.';
 $config['domain_suffix'] = 'nodes.example.com';
 $config['email_from'] = 'freifunk@example.com';
+$config['email_subject_confirmation'] = '[Nodewatcher] Mailbestätigung';
 $config['email_message_confirmation'] = <<<EOF
 Sie haben sich beim Nodewatcher angemeldet.
 Um diesen nutzen zu können, müssen Sie Ihre Mailadresse
@@ -18,6 +27,7 @@ ___LINK___
 
 
 EOF;
+$config['email_subject_offline'] = '[Nodewatcher] ___NODENAME___ ist offline';
 $config['email_message_offline'] = <<<EOF
 Hallo,
 
