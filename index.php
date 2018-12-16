@@ -30,6 +30,11 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED O
 POSSIBILITY OF SUCH DAMAGE.
 */
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require __DIR__ . '/vendor/autoload.php';
+
 require_once __DIR__ . '/config.defaults.php';
 require_once __DIR__ . '/config.php';
 
@@ -101,8 +106,15 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
       file_put_contents(__DIR__ . '/data/pending/' . $nodename, $token);
       file_put_contents(__DIR__ . '/data/mail/' . $nodename, $nodecontact);
 
-      $header = array('From' => $config['email_from'], 'Content-type' => 'text/plain; charset=utf-8');
-      mail($nodecontact, '[Nodewatcher] Mailbestätigung', str_replace('___LINK___', $_SERVER['SCRIPT_URI'] . '?token=' . $token, $config['email_message_confirmation'], $header));
+      $mail = new PHPMailer;
+      $mail->isSendmail();
+      $mail->CharSet = 'utf-8';
+      $mail->setFrom($config['email_from']);
+      $mail->addAddress($nodecontact);
+      $mail->isHTML(false);
+      $mail->Subject = '[Nodewatcher] Mailbestätigung';
+      $mail->Body = str_replace(array('___LINK___', '___EMAIL___'), array($_SERVER['SCRIPT_URI'] . '?token=' . $token, $nodecontact), $config['email_message_confirmation']);
+      $mail->send();
     }
   }
 } else {
