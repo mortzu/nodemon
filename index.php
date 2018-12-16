@@ -45,6 +45,7 @@ require_once __DIR__ . '/config.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=">
+    <link rel="stylesheet" href="github-fork-ribbon-css/gh-fork-ribbon.css">
     <title><?php echo $config['view_title']; ?></title>
     <style type="text/css">
     body {
@@ -53,7 +54,9 @@ require_once __DIR__ . '/config.php';
     </style>
   </head>
 
-  <body>,
+  <body>
+    <a class="github-fork-ribbon" href="https://github.com/mortzu/nodewatcher" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+
     <div class="container">
       <div class="col-xs-1 text-center" style="text-align:center;">
         <h1><?php echo $config['view_title']; ?></h1>
