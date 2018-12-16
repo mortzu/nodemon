@@ -77,7 +77,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     closedir($dh);
   }
 } elseif (isset($_POST['nodename']) && !empty($_POST['nodename'])) {
-  $nodename = preg_replace('/[^A-Za-z0-9-]/', '', $_POST['nodename']);
+  $nodename = strtolower(preg_replace('/[^A-Za-z0-9-]/', '', $_POST['nodename']));
 
   if (false === $nodeinfo = file_get_contents('http://' . $nodename . '.' . $config['domain_suffix'] . '/cgi-bin/status')) {
     if (false === $nodeinfo = file_get_contents('http://' . $nodename . '.' . $config['domain_suffix'] . '/cgi-bin/nodeinfo'))
