@@ -43,23 +43,29 @@ require_once __DIR__ . '/config.php';
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=">
-    <link rel="stylesheet" href="github-fork-ribbon-css/gh-fork-ribbon.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/simonwhitaker/github-fork-ribbon-css/gh-fork-ribbon.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arvo" type="text/css">
+<?php
+foreach ($config['view_additional_css'] as $additional_css)
+  echo "    <link rel=\"stylesheet\" href=\"{$additional_css}\" type=\"text/css\">\n";
+?>
     <title><?php echo $config['view_title']; ?></title>
-    <style type="text/css">
-    body {
-      padding-top: 2rem;
-    }
-    </style>
   </head>
 
   <body>
     <a class="github-fork-ribbon" href="https://github.com/mortzu/nodewatcher" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
     <div class="container">
-      <div class="col-xs-1 text-center" style="text-align:center;">
+      <hgroup>
         <h1><?php echo $config['view_title']; ?></h1>
+        <h2><?php echo $config['view_subtitle']; ?></h2>
+<?php
+  echo $config['header'];
+?>
+</hgroup>
 
         <p><?php echo $config['view_text']; ?></p>
 
@@ -124,11 +130,11 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 
 ?>
 
-        <form class="form-inline justify-content-center" method="post" action="<?php echo $_SERVER['SCRIPT_URI']; ?>">
-          <div class="form-group mx-sm-3">
-            <input type="text" class="form-control" id="nodename" placeholder="Nodename" name="nodename">
+        <form class="form-inline" method="post" action="<?php echo $_SERVER['SCRIPT_URI']; ?>">
+          <div class="form-group" style="width: 100%;">
+            <input type="text" class="form-control" id="nodename" placeholder="Nodename" name="nodename" style="width: 86%;">
+            <input type="submit" name="submit" value="Eintragen" class="btn btn-default" style="width: 12%;">
           </div>
-          <button type="submit" class="btn btn-primary">Eintragen</button>
         </form>
 
 <?php } ?>
@@ -138,5 +144,9 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 
     <script src="vendor/components/jquery/jquery.min.js"></script>
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ="></script>
+
+<?php
+echo $config['footer'];
+?>
   </body>
 </html>

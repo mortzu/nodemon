@@ -1,7 +1,22 @@
 {
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "simonwhitaker/github-fork-ribbon-css",
+                "version": "master",
+                "source": {
+                    "url": "https://github.com/simonwhitaker/github-fork-ribbon-css.git",
+                    "type": "git",
+                    "reference":"gh-pages"
+                }
+            }
+        }
+    ],
     "require": {
-        "twbs/bootstrap": "^4.1",
+        "twbs/bootstrap": "^3.3",
         "components/jquery": "^3.3",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "simonwhitaker/github-fork-ribbon-css": "master@dev"
     }
 }

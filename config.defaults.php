@@ -1,5 +1,8 @@
 <?php
 
+$config['view_additional_css'] = array();
+$config['footer'] = '';
+$config['header'] = '';
 $config['view_title'] = 'Nodewatcher';
 $config['view_text'] = <<<EOF
 Hiermit kannst du dich per E-Mail benachrichtigen lassen,

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8a092f124f6f15b1f662e1fb69af4a0",
+    "content-hash": "ca899919f1c17849f0ef480f06987097",
     "packages": [
         {
             "name": "components/jquery",
@@ -115,17 +115,28 @@
             "time": "2018-11-16T00:41:32+00:00"
         },
         {
+            "name": "simonwhitaker/github-fork-ribbon-css",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simonwhitaker/github-fork-ribbon-css.git",
+                "reference": "gh-pages"
+            },
+            "type": "library",
+            "time": "2018-10-31T08:42:52+00:00"
+        },
+        {
             "name": "twbs/bootstrap",
-            "version": "v4.1.3",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "3b558734382ce58b51e5fc676453bfd53bba9201"
+                "reference": "4c547f2175b9a05aa43551f6927da83fe249ce42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/3b558734382ce58b51e5fc676453bfd53bba9201",
-                "reference": "3b558734382ce58b51e5fc676453bfd53bba9201",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/4c547f2175b9a05aa43551f6927da83fe249ce42",
+                "reference": "4c547f2175b9a05aa43551f6927da83fe249ce42",
                 "shasum": ""
             },
             "replace": {
@@ -134,7 +145,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3.x-dev"
+                    "dev-master": "3.4.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -158,18 +169,20 @@
                 "css",
                 "framework",
                 "front-end",
+                "less",
                 "mobile-first",
                 "responsive",
-                "sass",
                 "web"
             ],
-            "time": "2018-07-24T15:54:34+00:00"
+            "time": "2018-12-13T23:45:51+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "simonwhitaker/github-fork-ribbon-css": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
