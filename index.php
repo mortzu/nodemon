@@ -56,14 +56,17 @@ foreach ($config['view_additional_css'] as $additional_css)
   </head>
 
   <body>
-    <a class="github-fork-ribbon" href="https://github.com/mortzu/nodewatcher" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+    <a class="github-fork-ribbon left-top" href="https://github.com/mortzu/nodewatcher" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
     <div class="container">
+<?php
+  echo $config['view_header_pre'];
+?>
       <hgroup>
         <h1><?php echo $config['view_title']; ?></h1>
         <h2><?php echo $config['view_subtitle']; ?></h2>
 <?php
-  echo $config['header'];
+  echo $config['view_header'];
 ?>
 </hgroup>
 
@@ -146,7 +149,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ="></script>
 
 <?php
-echo $config['footer'];
+echo $config['view_footer'];
 ?>
   </body>
 </html>
