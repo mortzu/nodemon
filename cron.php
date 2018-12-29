@@ -39,29 +39,61 @@ require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config.defaults.php';
 require_once __DIR__ . '/config.php';
 
-foreach (glob(__DIR__ . '/data/verified/*') as $node_file) {
-  $nodename = basename($node_file);
+if (!empty($config['sync_with_nodes_json'])) {
+  $nodes_list = array();
 
-  if (false === $email_to = @file_get_contents(__DIR__ . '/data/mail/' . $nodename))
+  if (false == $node_json = file_get_contents($config['sync_with_nodes_json']))
+    error_log('Could not fetch nodes.json');
+  elseif (empty($node_json))
+    error_log('Fetched nodes.json is empty');
+  else {
+    $node_json_decoded = json_decode($node_json, true);
+
+    if (!is_array($node_json_decoded))
+      error_log('Fetched nodes.json is not valid JSON');
+    else
+      foreach ($node_json_decoded['nodes'] as $nodes)
+        array_push($nodes_list, strtolower(preg_replace('/[^A-Za-z0-9-]/', '-', $nodes['nodeinfo']['hostname'])));
+  }
+}
+
+foreach (glob(__DIR__ . '/data/verified/*') as $node_file) {
+  $node_status_current = 0;
+  $node_name = basename($node_file);
+
+  if (!in_array($node_name, $nodes_list)) {
+    unlink($node_file);
+    continue;
+  }
+
+  $json_decoded = json_decode(file_get_contents($node_file), true);
+
+  if (!is_array($json_decoded))
     continue;
 
-  system('ping6 -c5 -W5 ' . $nodename . '.' . $config['domain_suffix'] . ' >/dev/null 2>&1', $return_val);
+  $email_to = $json_decoded['mail'];
+  $node_status_last = (isset($json_decoded['status']) ? $json_decoded['status'] : 0);
+
+  system('ping6 -c5 -W5 ' . $node_name . '.' . $config['domain_suffix'] . ' >/dev/null 2>&1', $return_val);
 
   if ($return_val == 0)
-    file_put_contents($node_file, '1');
+    $node_status_current = 1;
   else {
-    if (trim(file_get_contents($node_file)) != 0) {
+    if ($node_status_last != 0) {
       $mail = new PHPMailer;
       $mail->isSendmail();
       $mail->CharSet = 'utf-8';
       $mail->setFrom($config['email_from']);
       $mail->addAddress($email_to);
       $mail->isHTML(false);
-      $mail->Subject = str_replace('___NODENAME___', $nodename, $config['email_subject_offline']);
-      $mail->Body = str_replace(array('___NODENAME___', '___EMAIL___'), array($nodename, $email_to), $config['email_message_offline']);
+      $mail->Subject = str_replace('___NODENAME___', $node_name, $config['email_subject_offline']);
+      $mail->Body = str_replace(array('___NODENAME___', '___EMAIL___', '___LINK_DELETE___'), array($node_name, $email_to, $config['url_base'] . '?delete&token=' . $json_decoded['token']), $config['email_message_offline']);
       $mail->send();
     }
 
-    file_put_contents($node_file, '0');
+    $node_status_current = 0;
   }
+
+  $json_decoded['status'] = $node_status_current;
+  file_put_contents($node_file, json_encode($json_decoded));
 }

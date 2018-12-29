@@ -1,5 +1,7 @@
 <?php
 
+$config['sync_with_nodes_json'] = 'https://example.org/nodes.json';
+$config['url_base'] = 'https://example.org/';
 $config['view_additional_css'] = array();
 $config['view_footer'] = '';
 $config['view_header'] = '';
@@ -13,6 +15,7 @@ um deine E-Mail-Adresse auf Gültigkeit zu prüfen. Danach bekommst du eine E-Ma
 Knoten ausfällt.
 EOF;
 $config['view_text_confirmed'] = 'Die E-Mail-Adresse für deinen Knoten wurde bestätigt.';
+$config['view_text_deleted'] = 'Dein Knote wurde gelöscht.';
 $config['view_text_node_noconnect'] = 'Konnte keine Information vom Knoten holen';
 $config['view_text_node_parse'] = 'Konnte JSON vom Knoten nicht parsen';
 $config['view_text_node_nomail'] = 'Auf dem Knoten wurde keine E-Mail-Adresse eingegeben';
@@ -27,7 +30,11 @@ Du hast dich beim Nodewatcher angemeldet.
 Um diesen nutzen zu können, musst Du deine Mailadresse
 bestätigen:
 
-___LINK___
+___LINK_CONFIRM___
+
+Um die Benachrichtigungen zu deaktivieren klicke auf diesen Link:
+
+___LINK_DELETE___
 
 -- 
 Du erhältst diese Mail, weil die E-Mail-Adresse ___EMAIL___ als Kontakt bei der
@@ -42,6 +49,10 @@ dein Knoten ___NODENAME___ ist offline.
 
 Vielleicht ist er nicht mehr in Reichweite eines benachbarten Knoten oder seine
 VPN-Verbindung ist abgebrochen?
+
+Um die Benachrichtigungen zu deaktivieren klicke auf diesen Link:
+
+___LINK_DELETE___
 
 -- 
 Du erhältst diese Mail, weil die E-Mail-Adresse ___EMAIL___ als Kontakt bei der

@@ -74,22 +74,26 @@ foreach ($config['view_additional_css'] as $additional_css)
 
 <?php
 
-if (isset($_GET['token']) && !empty($_GET['token'])) {
-  if ($dh = opendir(__DIR__ . '/data/pending/')) {
-    while (($file = readdir($dh)) !== false) {
-      if (!is_file(__DIR__ . '/data/pending/' . $file))
-        continue;
+if (isset($_GET['delete']) && isset($_GET['token']) && !empty($_GET['token'])) {
+  foreach (glob(__DIR__ . '/data/verified/*') as $filename) {
+    $json_decoded = json_decode(file_get_contents($filename), true);
 
-      if ($_GET['token'] == trim(file_get_contents(__DIR__ . '/data/pending/' . $file))) {
-        echo '<div class="alert alert-success" role="alert">' . $config['view_text_confirmed'] . '</div>';
-        rename(__DIR__ . '/data/pending/' . $file, __DIR__ . '/data/verified/' . $file);
-      }
+    if ($_GET['token'] == $json_decoded['token']) {
+      echo '<div class="alert alert-success" role="alert">' . $config['view_text_deleted'] . '</div>';
+      unlink($filename);
     }
+  }
+} elseif (isset($_GET['token']) && !empty($_GET['token'])) {
+  foreach (glob(__DIR__ . '/data/pending/*') as $filename) {
+    $json_decoded = json_decode(file_get_contents($filename), true);
 
-    closedir($dh);
+    if ($_GET['token'] == $json_decoded['token']) {
+      echo '<div class="alert alert-success" role="alert">' . $config['view_text_confirmed'] . '</div>';
+      rename($filename, __DIR__ . '/data/verified/' . basename($filename));
+    }
   }
 } elseif (isset($_POST['nodename']) && !empty($_POST['nodename'])) {
-  $nodename = strtolower(preg_replace('/[^A-Za-z0-9-]/', '', $_POST['nodename']));
+  $nodename = strtolower(preg_replace('/[^A-Za-z0-9-]/', '-', $_POST['nodename']));
 
   if (false === $nodeinfo = file_get_contents('http://' . $nodename . '.' . $config['domain_suffix'] . '/cgi-bin/status')) {
     if (false === $nodeinfo = file_get_contents('http://' . $nodename . '.' . $config['domain_suffix'] . '/cgi-bin/nodeinfo'))
@@ -99,11 +103,11 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     elseif (!isset($nodeinfo_json['owner']['contact']) || empty($nodeinfo_json['owner']['contact']))
       echo '<div class="alert alert-danger" role="alert">' . $config['view_text_node_nomail'] . '</div>';
     else
-      $nodecontact = $nodeinfo_json['owner']['contact'];
+      $nodecontact = strtolower($nodeinfo_json['owner']['contact']);
   } elseif (false === preg_match('/<dt>Contact<\/dt><dd>(.*)<\/dd>/', $nodeinfo, $nodecontact_array))
       echo '<div class="alert alert-danger" role="alert">' . $config['view_text_node_nomail'] . '</div>';
   else
-    $nodecontact = $nodecontact_array[1];
+    $nodecontact = strtolower($nodecontact_array[1]);
 
   if (!empty($nodecontact)) {
     if (!filter_var($nodecontact, FILTER_VALIDATE_EMAIL))
@@ -115,8 +119,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 
       $token = md5(time());
 
-      file_put_contents(__DIR__ . '/data/pending/' . $nodename, $token);
-      file_put_contents(__DIR__ . '/data/mail/' . $nodename, $nodecontact);
+      file_put_contents(__DIR__ . '/data/pending/' . $nodename, json_encode(array('token' => $token, 'mail' => $nodecontact)));
 
       $mail = new PHPMailer;
       $mail->isSendmail();
@@ -125,7 +128,7 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
       $mail->addAddress($nodecontact);
       $mail->isHTML(false);
       $mail->Subject = $config['email_subject_confirmation'];
-      $mail->Body = str_replace(array('___LINK___', '___EMAIL___'), array($_SERVER['SCRIPT_URI'] . '?token=' . $token, $nodecontact), $config['email_message_confirmation']);
+      $mail->Body = str_replace(array('___LINK_CONFIRM___', '___LINK_DELETE___', '___EMAIL___'), array($_SERVER['SCRIPT_URI'] . '?token=' . $token, $_SERVER['SCRIPT_URI'] . '?delete&token=' . $token, $nodecontact), $config['email_message_confirmation']);
       $mail->send();
     }
   }
@@ -133,10 +136,13 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
 
 ?>
 
-        <form class="form-inline" method="post" action="<?php echo $_SERVER['SCRIPT_URI']; ?>">
-          <div class="form-group" style="width: 100%;">
-            <input type="text" class="form-control" id="nodename" placeholder="Nodename" name="nodename" style="width: 86%;">
-            <input type="submit" name="submit" value="Eintragen" class="btn btn-default" style="width: 12%;">
+        <form method="post" action="<?php echo $_SERVER['SCRIPT_URI']; ?>">
+          <div class="form-group row">
+            <div class="col-xs-10 col-md-10">
+              <input type="text" class="form-control" id="nodename" placeholder="Nodename" name="nodename">
+            </div><div class="col-xs-2 col-md-2">
+              <input type="submit" name="submit" value="Eintragen" class="btn btn-default">
+            </div>
           </div>
         </form>
 
