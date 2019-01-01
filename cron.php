@@ -79,7 +79,7 @@ foreach (glob(__DIR__ . '/data/verified/*') as $node_file) {
   if ($return_val == 0)
     $node_status_current = 1;
   else {
-    if ($node_status_last == 3) {
+    if ($node_status_last == 0) {
       $mail = new PHPMailer;
       $mail->isSendmail();
       $mail->CharSet = 'utf-8';
@@ -90,11 +90,14 @@ foreach (glob(__DIR__ . '/data/verified/*') as $node_file) {
       $mail->Body = str_replace(array('___NODENAME___', '___EMAIL___', '___LINK_DELETE___'), array($node_name, $email_to, $config['url_base'] . '?delete&token=' . $json_decoded['token']), $config['email_message_offline']);
       $mail->send();
 
+      $node_status_current = 2;
+    } elseif ($node_status_last == 2)
+      $node_status_current = 2;
+    else
       $node_status_current = 0;
-    } else
-      $node_status_current = 3;
   }
 
   $json_decoded['status'] = $node_status_current;
+
   file_put_contents($node_file, json_encode($json_decoded));
 }

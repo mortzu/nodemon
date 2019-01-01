@@ -139,7 +139,7 @@ if (isset($_GET['delete']) && isset($_GET['token']) && !empty($_GET['token'])) {
         <form method="post" action="<?php echo $_SERVER['SCRIPT_URI']; ?>">
           <div class="form-group row">
             <div class="col-xs-8 col-md-10">
-              <input type="text" class="form-control" id="nodename" placeholder="Nodename" name="nodename">
+              <input type="text" class="form-control" id="nodename" placeholder="Nodename" name="nodename" autofocus>
             </div><div class="col-xs-2 col-md-2">
               <input type="submit" name="submit" value="Eintragen" class="btn btn-default">
             </div>

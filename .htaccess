@@ -2,6 +2,7 @@ RewriteEngine On
 RewriteBase /
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^.*\.git.* - [R=404]
 
 <Files "cron.php">
   Require all denied
