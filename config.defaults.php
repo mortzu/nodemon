@@ -8,11 +8,11 @@ $config['view_header'] = '';
 $config['view_header_pre'] = '';
 $config['view_title'] = 'Nodewatcher';
 $config['view_text'] = <<<EOF
-Hiermit kannst du dich per E-Mail benachrichtigen lassen,
+Der Nodewatcher kann dich per E-Mail benachrichtigen,
 falls dein Freifunk-Knoten ausfällt.<br><br>
-Trage hierfür den Knotennamen in das Feld ein, danach bekommst du eine Bestätigungsmail,
-um deine E-Mail-Adresse auf Gültigkeit zu prüfen. Danach bekommst du eine E-Mail, wenn dein
-Knoten ausfällt.
+Nach dem du in das Formular den Knotennamen eingetragen hast, bekommst du eine Bestätigungsmail,
+um deine E-Mail-Adresse auf Gültigkeit zu prüfen.<br><br>
+Danach bekommst du eine E-Mail, wenn dein Knoten ausfällt.
 EOF;
 $config['view_text_confirmed'] = 'Die E-Mail-Adresse für deinen Knoten wurde bestätigt.';
 $config['view_text_deleted'] = 'Dein Knote wurde gelöscht.';
