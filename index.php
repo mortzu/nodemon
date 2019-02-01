@@ -56,7 +56,7 @@ foreach ($config['view_additional_css'] as $additional_css)
   </head>
 
   <body>
-    <a class="github-fork-ribbon left-top" href="https://github.com/mortzu/nodewatcher" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+    <a class="github-fork-ribbon left-top" href="https://github.com/mortzu/nodemon" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
     <div class="container">
 <?php
@@ -68,7 +68,7 @@ foreach ($config['view_additional_css'] as $additional_css)
 <?php
   echo $config['view_header'];
 ?>
-</hgroup>
+      </hgroup>
 
         <p><?php echo $config['view_text']; ?></p>
 

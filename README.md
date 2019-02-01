@@ -1,4 +1,4 @@
-# Nodewatcher
+# Nodemon
 
 Software to notify owners if their [Freifunk](https://freifunk.net) nodes go down.
 
