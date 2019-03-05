@@ -62,7 +62,8 @@ foreach (glob(__DIR__ . '/data/verified/*') as $node_file) {
   $node_name = basename($node_file);
 
   if (!in_array($node_name, $nodes_list)) {
-    unlink($node_file);
+    error_log('Moved ' . $node_name . ' to deleted');
+    rename($node_file, __DIR__ . '/data/deleted/' . basename($node_name));
     continue;
   }
 
