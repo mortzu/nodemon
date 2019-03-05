@@ -52,7 +52,7 @@ require_once __DIR__ . '/config.php';
 foreach ($config['view_additional_css'] as $additional_css)
   echo "    <link rel=\"stylesheet\" href=\"{$additional_css}\" type=\"text/css\">\n";
 ?>
-    <title><?php echo $config['view_title']; ?></title>
+    <title><?php echo $config['view_title']; ?> - <?php echo $config['view_subtitle']; ?></title>
   </head>
 
   <body>
