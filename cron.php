@@ -42,7 +42,7 @@ require_once __DIR__ . '/config.php';
 if (!empty($config['sync_with_nodes_json'])) {
   $nodes_list = array();
 
-  if (false == $node_json = file_get_contents($config['sync_with_nodes_json']))
+  if (FALSE === $node_json = file_get_contents($config['sync_with_nodes_json']))
     error_log('Could not fetch nodes.json');
   elseif (empty($node_json))
     error_log('Fetched nodes.json is empty');
