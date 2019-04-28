@@ -61,10 +61,12 @@ foreach (glob(__DIR__ . '/data/verified/*') as $node_file) {
   $node_status_current = 0;
   $node_name = basename($node_file);
 
-  if (!in_array($node_name, $nodes_list)) {
-    error_log('Moved ' . $node_name . ' to deleted');
-    rename($node_file, __DIR__ . '/data/deleted/' . basename($node_name));
-    continue;
+  if (!empty($config['sync_with_nodes_json'])) {
+    if (!in_array($node_name, $nodes_list)) {
+      error_log('Moved ' . $node_name . ' to deleted');
+      rename($node_file, __DIR__ . '/data/deleted/' . basename($node_name));
+      continue;
+    }
   }
 
   $json_decoded = json_decode(file_get_contents($node_file), true);
